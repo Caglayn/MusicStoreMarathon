@@ -11,9 +11,9 @@ import java.util.ArrayList;
 
 public class CDEntityController implements Controllable<CDEntity> {
     @Override
-    public void delete(CDEntity entity) {
+    public void delete(long id) {
         try {
-            CDEntity tempEntity = find(entity.getCdId());
+            CDEntity tempEntity = find(id);
             if (tempEntity != null) {
                 Session session = databaseConnectionHibernate();
                 session.getTransaction().begin();

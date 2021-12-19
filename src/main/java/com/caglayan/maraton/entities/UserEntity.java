@@ -39,6 +39,9 @@ public class UserEntity {
     @Column(name = "isadmin")
     private Boolean isAdmin = false;
 
+    @Column(name = "isactive")
+    private Boolean isActive = false;
+
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

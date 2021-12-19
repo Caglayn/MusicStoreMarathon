@@ -31,7 +31,7 @@ public class ArtistEntity {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(mappedBy = "cdArtist", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cdArtist", fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Set<CDEntity> cdAlbums = new HashSet<>();
 
     @EqualsAndHashCode.Exclude

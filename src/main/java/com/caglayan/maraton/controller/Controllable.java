@@ -42,7 +42,7 @@ public interface Controllable<T>{
         }
     }
 
-    public void delete(T entity);// silmek
+    public void delete(long id);// silmek
 
     public void update(T entity);// güncelleme
 
@@ -51,6 +51,6 @@ public interface Controllable<T>{
     public T find(long id);
 
     default Session databaseConnectionHibernate() {
-        return HibernateUtil.getSessionFactory().openSession();
+        return HibernateUtil.getInstance().getOpenSession();
     }
 }

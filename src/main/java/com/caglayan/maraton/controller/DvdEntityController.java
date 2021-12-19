@@ -2,6 +2,7 @@ package com.caglayan.maraton.controller;
 
 import com.caglayan.maraton.entities.CDEntity;
 import com.caglayan.maraton.entities.DVDEntity;
+import com.caglayan.maraton.utils.LogUtil;
 import org.hibernate.Session;
 
 import javax.persistence.TypedQuery;
@@ -11,18 +12,18 @@ import java.util.ArrayList;
 
 public class DvdEntityController implements Controllable<DVDEntity> {
     @Override
-    public void delete(DVDEntity entity) {
+    public void delete(long id) {
         try {
-            DVDEntity tempEntity = find(entity.getDvdId());
+            DVDEntity tempEntity = find(id);
             if (tempEntity != null) {
                 Session session = databaseConnectionHibernate();
                 session.getTransaction().begin();
                 session.remove(tempEntity);
                 session.getTransaction().commit();
-//                LogUtil.getInstance().logInfo("Silme  islemi tamamlandi : >> " + tempEntity);
+                LogUtil.getInstance().logInfo("Silme  islemi tamamlandi : >> " + tempEntity);
             }
         } catch (Exception e) {
-//            LogUtil.getInstance().logError("Silme sirasinda hata meydana geldi : >> " + this.getClass());
+            LogUtil.getInstance().logError("Silme sirasinda hata meydana geldi : >> " + this.getClass());
         }
     }
 
@@ -42,10 +43,10 @@ public class DvdEntityController implements Controllable<DVDEntity> {
             session.getTransaction().begin();
             session.merge(tempEntity);
             session.getTransaction().commit();
-//            LogUtil.getInstance().logInfo("Guncelleme islemi tamamlandi : >> " + tempEntity);
+            LogUtil.getInstance().logInfo("Guncelleme islemi tamamlandi : >> " + tempEntity);
         } catch (Exception e) {
             e.printStackTrace();
-//            LogUtil.getInstance().logError("Guncelleme sirasinda hata meydana geldi : >> " + this.getClass());
+            LogUtil.getInstance().logError("Guncelleme sirasinda hata meydana geldi : >> " + this.getClass());
         }
     }
 
@@ -59,10 +60,10 @@ public class DvdEntityController implements Controllable<DVDEntity> {
 
         ArrayList<DVDEntity> dvdAlbums = (ArrayList<DVDEntity>) session.createQuery(criteria).getResultList();
 
-//        if (users.size() > 0) {
-//            LogUtil.getInstance().logInfo("Kayitlar bulundu.");
-//        } else
-//            LogUtil.getInstance().logInfo("Listelenecek kayit bulunamadi !");
+        if (dvdAlbums.size() > 0) {
+            LogUtil.getInstance().logInfo("Kayitlar bulundu.");
+        } else
+            LogUtil.getInstance().logInfo("Listelenecek kayit bulunamadi !");
 
         return dvdAlbums;
     }
@@ -74,11 +75,11 @@ public class DvdEntityController implements Controllable<DVDEntity> {
         try {
             tempEntity = session.find(DVDEntity.class, id);
 
-//            if (tempEntity != null) {
-//                LogUtil.getInstance().logInfo("Kayit bulundu : >> " + tempEntity);
-//            } else {
-//                LogUtil.getInstance().logInfo("Aradiginiz kriterde kayit bulunamadi !!");
-//            }
+            if (tempEntity != null) {
+                LogUtil.getInstance().logInfo("Kayit bulundu : >> " + tempEntity);
+            } else {
+                LogUtil.getInstance().logInfo("Aradiginiz kriterde kayit bulunamadi !!");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -40,7 +39,7 @@ public class CDEntity{
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "artist_id", referencedColumnName = "id")
     private ArtistEntity cdArtist;
 

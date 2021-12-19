@@ -1,5 +1,7 @@
 package com.caglayan.maraton.controller;
 
+import com.caglayan.maraton.entities.GenreEntity;
+import javafx.event.ActionEvent;
 import com.caglayan.maraton.entities.CDEntity;
 import com.caglayan.maraton.entities.DVDEntity;
 import com.caglayan.maraton.entities.VinylEntity;
@@ -16,16 +18,40 @@ import com.caglayan.maraton.utils.QualityChooserConverter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Optional;
 
 public class AdminViewController {
+
+    @FXML
+    private Button btnCdDelete;
+
+    @FXML
+    private Button btnCdNewRecord;
+
+    @FXML
+    private Button btnCdUpdate;
+
+    @FXML
+    private Button btnDvdDelete;
+
+    @FXML
+    private Button btnDvdNewRecor;
+
+    @FXML
+    private Button btnDvdUpdate;
+
+    @FXML
+    private Button btnVinylDelete;
+
+    @FXML
+    private Button btnVinylNewRecord;
+
+    @FXML
+    private Button btnVinylUpdate;
 
     @FXML
     private CheckBox chkbxCdCanSold;
@@ -251,15 +277,7 @@ public class AdminViewController {
 
     private void showVinylAlbumDetails(VinylViewDto vinyl) {
         if (vinyl == null) {
-            this.txtVinylId.setText("");
-            this.txtVinylAlbumName.setText("");
-            this.txtVinylPrice.setText("");
-            this.txtVinylDiscount.setText("");
-            this.txtVinylDiameter.setText("");
-            this.txtVinylSpeed.setText("");
-            this.comboVinylArtist.setValue(null);
-            this.comboVinylGenres.setValue(null);
-            this.chkbxVinylCanSold.setSelected(false);
+            clearVinylAlbumDetails();
         } else {
             this.txtVinylId.setText(Long.toString(vinyl.getId().get()));
             this.txtVinylAlbumName.setText(vinyl.getAlbumName().get() == null ? "" : vinyl.getAlbumName().get());
@@ -282,16 +300,21 @@ public class AdminViewController {
         }
     }
 
+    private void clearVinylAlbumDetails() {
+        this.txtVinylId.setText("");
+        this.txtVinylAlbumName.setText("");
+        this.txtVinylPrice.setText("");
+        this.txtVinylDiscount.setText("");
+        this.txtVinylDiameter.setText("");
+        this.txtVinylSpeed.setText("");
+        this.comboVinylArtist.getSelectionModel().clearSelection();
+        this.comboVinylGenres.getSelectionModel().clearSelection();
+        this.chkbxVinylCanSold.setSelected(false);
+    }
+
     private void showDvdAlbumDetails(DvdViewDto dvd) {
         if (dvd == null) {
-            this.txtDvdId.setText("");
-            this.txtDvdAlbumName.setText("");
-            this.txtDvdPrice.setText("");
-            this.txtDvdDiscount.setText("");
-            this.comboDvdArtist.setValue(null);
-            this.comboDvdGenres.setValue(null);
-            this.comboDvdQuality.setValue(null);
-            this.chkbxDvdCanSold.setSelected(false);
+            clearDvdAlbumDetails();
         } else {
             this.txtDvdId.setText(Long.toString(dvd.getId().get()));
             this.txtDvdAlbumName.setText(dvd.getAlbumName().get() == null ? "" : dvd.getAlbumName().get());
@@ -317,15 +340,20 @@ public class AdminViewController {
         }
     }
 
+    private void clearDvdAlbumDetails() {
+        this.txtDvdId.setText("");
+        this.txtDvdAlbumName.setText("");
+        this.txtDvdPrice.setText("");
+        this.txtDvdDiscount.setText("");
+        this.comboDvdArtist.getSelectionModel().clearSelection();
+        this.comboDvdGenres.getSelectionModel().clearSelection();
+        this.comboDvdQuality.getSelectionModel().clearSelection();
+        this.chkbxDvdCanSold.setSelected(false);
+    }
+
     private void showCdAlbumDetails(CdViewDto cd) {
         if (cd == null) {
-            this.txtCdId.setText("");
-            this.txtCdAlbumName.setText("");
-            this.txtCdPrice.setText("");
-            this.txtCdDiscount.setText("");
-            this.comboCdArtist.setValue(null);
-            this.comboCdGenres.setValue(null);
-            this.chkbxCdCanSold.setSelected(false);
+            clearCdAlbumDetails();
         } else {
             this.txtCdId.setText(Long.toString(cd.getId().get()));
             this.txtCdAlbumName.setText(cd.getAlbumName().get() == null ? "" : cd.getAlbumName().get());
@@ -344,6 +372,16 @@ public class AdminViewController {
 
             this.chkbxCdCanSold.setSelected(cd.getCanSold().get());
         }
+    }
+
+    private void clearCdAlbumDetails() {
+        this.txtCdId.setText("");
+        this.txtCdAlbumName.setText("");
+        this.txtCdPrice.setText("");
+        this.txtCdDiscount.setText("");
+        this.comboCdArtist.getSelectionModel().clearSelection();
+        this.comboCdGenres.getSelectionModel().clearSelection();
+        this.chkbxCdCanSold.setSelected(false);
     }
 
     private void initializeVinylAlbumsTable() {
@@ -390,6 +428,7 @@ public class AdminViewController {
     private void initializeCdAlbums() {
         CDEntityController cdEntityController = new CDEntityController();
         ArrayList<CDEntity> cdEntities = cdEntityController.list();
+        this.cdAlbums = FXCollections.observableArrayList();
         for (CDEntity cdEntity : cdEntities) {
             this.addCdAlbum(new CdViewDto(cdEntity));
         }
@@ -442,5 +481,164 @@ public class AdminViewController {
             this.vinylAlbums = FXCollections.observableArrayList();
         }
         return vinylAlbums;
+    }
+
+    @FXML
+    void actionExit(ActionEvent event) {
+        System.exit(0);
+    }
+
+    @FXML
+    void actionShowAbout(ActionEvent event) {
+        showInfoAlert("Record Store Application v1.0");
+    }
+
+    private void showWarningAlert(String message){
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning..!");
+        alert.setHeaderText(message);
+        alert.show();
+    }
+
+    private void showInfoAlert(String message){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Info");
+        alert.setHeaderText(message);
+        alert.show();
+    }
+
+    private boolean showConfirmationAlert(String message){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Are you sure !");
+        alert.setContentText(message);
+        ButtonType okButton = new ButtonType("Yes", ButtonBar.ButtonData.YES);
+        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(okButton, cancelButton);
+
+        Optional<ButtonType> type = alert.showAndWait();
+        if (type.get() == okButton)
+            return true;
+        else
+            return false;
+    }
+
+    @FXML
+    void cdDeleteAction(ActionEvent event) {
+        if (txtCdId.getText().isBlank())
+            showWarningAlert("Please select a record first !");
+        else{
+            long deleteId = Long.valueOf(txtCdId.getText());
+
+            boolean selection = showConfirmationAlert("Are you sure want to delete ?");
+            if (selection){
+                int deleteIndex = findCdIndexToBeDeleted(deleteId);
+                if (deleteIndex != -1){
+                    cdAlbums.remove(deleteIndex);
+                    CDEntityController cdEntityController = new CDEntityController();
+                    cdEntityController.delete(deleteId);
+                    clearCdAlbumDetails();
+                }
+            }
+
+        }
+    }
+
+    private int findCdIndexToBeDeleted(long deleteId) {
+        for (int i = 0; i<cdAlbums.size();i++){
+            if (cdAlbums.get(i).getId().get()==deleteId)
+                return i;
+        }
+        return -1;
+    }
+
+    @FXML
+    void cdNewRecordAction(ActionEvent event) {
+        if(!this.txtCdId.getText().isBlank()){
+            clearCdAlbumDetails();
+            showInfoAlert("For create a new record, please press again new record button after filling all fields");
+        }
+        else {
+            if (!txtCdAlbumName.getText().isBlank() && !txtCdPrice.getText().isBlank() && !txtCdDiscount.getText().isBlank()
+            && (comboCdArtist.getValue()!=null) && (comboCdGenres.getValue()!=null) ) {
+                CDEntityController cdEntityController = new CDEntityController();
+                ArtistEntityController artistEntityController = new ArtistEntityController();
+                CDEntity newCd = new CDEntity();
+                newCd.setAlbumName(txtCdAlbumName.getText());
+                newCd.setPrice(Double.valueOf(txtCdPrice.getText()));
+                newCd.setCanSold(chkbxCdCanSold.isSelected());
+                newCd.setCdArtist(artistEntityController.find(comboCdArtist.getValue().getId().get()));
+                newCd.addGenre(new GenreEntity(comboCdGenres.getValue()));
+                cdEntityController.create(newCd);
+                initializeCdAlbums();
+                initializeCdAlbumsTable();
+                showInfoAlert("New record creation successful");
+                clearCdAlbumDetails();
+            }
+            else {
+                showWarningAlert("Please fill all fields");
+            }
+        }
+    }
+
+    @FXML
+    void cdUpdateAction(ActionEvent event) {
+        if (txtCdId.getText().isBlank())
+            showWarningAlert("Please select a record first !");
+        else {
+            long updateId = Long.valueOf(txtCdId.getText());
+            boolean selection = showConfirmationAlert("Are you sure want to update ?");
+            if (selection){
+                CDEntityController cdEntityController = new CDEntityController();
+                ArtistEntityController artistEntityController = new ArtistEntityController();
+                CDEntity updateEntity = cdEntityController.find(updateId);
+                if (updateEntity != null){
+                    updateEntity.setAlbumName(txtCdAlbumName.getText());
+                    updateEntity.setPrice(Double.valueOf(txtCdPrice.getText()));
+                    updateEntity.setCanSold(chkbxCdCanSold.isSelected());
+                    updateEntity.setDiscountRate(Double.valueOf(txtCdDiscount.getText()));
+                    if (comboCdArtist.getValue() != null)
+                        updateEntity.setCdArtist(artistEntityController.find(comboCdArtist.getValue().getId().get()));
+                    if (comboCdGenres.getValue() != null){
+                        HashSet<GenreEntity> set = new HashSet<GenreEntity>();
+                        set.add(new GenreEntity(comboCdGenres.getValue()));
+                        updateEntity.setGenres(set);
+                    }
+                    cdEntityController.update(updateEntity);
+                    initializeCdAlbums();
+                    initializeCdAlbumsTable();
+                    showInfoAlert("Update succesfull.");
+                }
+            }
+        }
+    }
+
+    @FXML
+    void dvdDeleteAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void dvdNewRecorAcrion(ActionEvent event) {
+
+    }
+
+    @FXML
+    void dvdUpdateAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void vinylDeleteAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void vinylNewRecordAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void vinylUpdateAction(ActionEvent event) {
+
     }
 }

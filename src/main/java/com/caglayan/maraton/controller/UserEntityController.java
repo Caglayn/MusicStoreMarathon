@@ -2,6 +2,7 @@ package com.caglayan.maraton.controller;
 
 import com.caglayan.maraton.entities.UserEntity;
 import com.caglayan.maraton.utils.AccountUtil;
+import com.caglayan.maraton.utils.LogUtil;
 import org.hibernate.Session;
 
 import javax.persistence.TypedQuery;
@@ -11,18 +12,19 @@ import java.util.ArrayList;
 
 public class UserEntityController implements Controllable<UserEntity> {
     @Override
-    public void delete(UserEntity entity) {
+    public void delete(long id) {
         try {
-            UserEntity tempEntity = find(entity.getUserId());
+            UserEntity tempEntity = find(id);
             if (tempEntity != null) {
                 Session session = databaseConnectionHibernate();
                 session.getTransaction().begin();
                 session.remove(tempEntity);
                 session.getTransaction().commit();
-//                LogUtil.getInstance().logInfo("Silme  islemi tamamlandi : >> " + tempEntity);
+                session.close();
+                LogUtil.getInstance().logInfo("Silme  islemi tamamlandi : >> " + tempEntity);
             }
         } catch (Exception e) {
-//            LogUtil.getInstance().logError("Silme sirasinda hata meydana geldi : >> " + this.getClass());
+            LogUtil.getInstance().logError("Silme sirasinda hata meydana geldi : >> " + this.getClass());
         }
     }
 
@@ -37,15 +39,16 @@ public class UserEntityController implements Controllable<UserEntity> {
             tempEntity.setPassword(entity.getPassword());
             tempEntity.setIsAdmin(entity.getIsAdmin());
             tempEntity.setPhoneNumber(entity.getPhoneNumber());
+            tempEntity.setIsActive(entity.getIsActive());
 
             Session session = databaseConnectionHibernate();
             session.getTransaction().begin();
             session.merge(tempEntity);
             session.getTransaction().commit();
-//            LogUtil.getInstance().logInfo("Guncelleme islemi tamamlandi : >> " + tempEntity);
+            LogUtil.getInstance().logInfo("Guncelleme islemi tamamlandi : >> " + tempEntity);
         } catch (Exception e) {
             e.printStackTrace();
-//            LogUtil.getInstance().logError("Guncelleme sirasinda hata meydana geldi : >> " + this.getClass());
+            LogUtil.getInstance().logError("Guncelleme sirasinda hata meydana geldi : >> " + this.getClass());
         }
     }
 
@@ -59,10 +62,10 @@ public class UserEntityController implements Controllable<UserEntity> {
 
         ArrayList<UserEntity> users = (ArrayList<UserEntity>) session.createQuery(criteria).getResultList();
 
-//        if (users.size() > 0) {
-//            LogUtil.getInstance().logInfo("Kayitlar bulundu.");
-//        } else
-//            LogUtil.getInstance().logInfo("Listelenecek kayit bulunamadi !");
+        if (users.size() > 0) {
+            LogUtil.getInstance().logInfo("Kayitlar bulundu.");
+        } else
+            LogUtil.getInstance().logInfo("Listelenecek kayit bulunamadi !");
 
         return users;
     }
@@ -74,11 +77,11 @@ public class UserEntityController implements Controllable<UserEntity> {
         try {
             tempEntity = session.find(UserEntity.class, id);
 
-//            if (tempEntity != null) {
-//                LogUtil.getInstance().logInfo("Kayit bulundu : >> " + tempEntity);
-//            } else {
-//                LogUtil.getInstance().logInfo("Aradiginiz kriterde kayit bulunamadi !!");
-//            }
+            if (tempEntity != null) {
+                LogUtil.getInstance().logInfo("Kayit bulundu : >> " + tempEntity);
+            } else {
+                LogUtil.getInstance().logInfo("Aradiginiz kriterde kayit bulunamadi !!");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,7 +96,10 @@ public class UserEntityController implements Controllable<UserEntity> {
         TypedQuery<UserEntity> typedQuery = session.createQuery(hql, UserEntity.class);
         typedQuery.setParameter("key", name);
         ArrayList<UserEntity> list = (ArrayList<UserEntity>) typedQuery.getResultList();
-        return list.get(0);
+        if (list.size()>0)
+            return list.get(0);
+        else
+            return null;
     }
 
     public UserEntity findByNameAndPassword(String name, String password) {

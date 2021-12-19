@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -25,17 +26,12 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                  <items>
-                    <MenuItem mnemonicParsing="false" text="Delete" />
+                    <MenuItem mnemonicParsing="false" onAction="#actionExit" text="Exit" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="About" />
+                    <MenuItem mnemonicParsing="false" onAction="#actionShowAbout" text="About" />
                   </items>
                 </Menu>
               </menus>
@@ -89,6 +85,9 @@
                                     <ComboBox fx:id="comboCdGenres" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                  </children>
                               </GridPane>
+                              <Button fx:id="btnCdUpdate" layoutX="537.0" layoutY="277.0" mnemonicParsing="false" onAction="#cdUpdateAction" prefHeight="25.0" prefWidth="79.0" text="Update" />
+                              <Button fx:id="btnCdDelete" layoutX="635.0" layoutY="277.0" mnemonicParsing="false" onAction="#cdDeleteAction" prefHeight="25.0" prefWidth="79.0" text="Delete !" />
+                              <Button fx:id="btnCdNewRecord" layoutX="588.0" layoutY="324.0" mnemonicParsing="false" onAction="#cdNewRecordAction" prefHeight="25.0" prefWidth="86.0" text="New Record" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -142,6 +141,9 @@
                                     <ComboBox fx:id="comboDvdQuality" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                  </children>
                               </GridPane>
+                              <Button fx:id="btnDvdUpdate" layoutX="537.0" layoutY="297.0" mnemonicParsing="false" onAction="#dvdUpdateAction" prefHeight="25.0" prefWidth="79.0" text="Update" />
+                              <Button fx:id="btnDvdDelete" layoutX="635.0" layoutY="297.0" mnemonicParsing="false" onAction="#dvdDeleteAction" prefHeight="25.0" prefWidth="79.0" text="Delete !" />
+                              <Button fx:id="btnDvdNewRecor" layoutX="588.0" layoutY="344.0" mnemonicParsing="false" onAction="#dvdNewRecorAcrion" prefHeight="25.0" prefWidth="86.0" text="New Record" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -203,6 +205,9 @@
                                     <ComboBox fx:id="comboVinylGenres" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                  </children>
                               </GridPane>
+                              <Button fx:id="btnVinylUpdate" layoutX="537.0" layoutY="310.0" mnemonicParsing="false" onAction="#vinylUpdateAction" prefHeight="25.0" prefWidth="79.0" text="Update" />
+                              <Button fx:id="btnVinylDelete" layoutX="635.0" layoutY="310.0" mnemonicParsing="false" onAction="#vinylDeleteAction" prefHeight="25.0" prefWidth="79.0" text="Delete !" />
+                              <Button fx:id="btnVinylNewRecord" layoutX="588.0" layoutY="357.0" mnemonicParsing="false" onAction="#vinylNewRecordAction" prefHeight="25.0" prefWidth="86.0" text="New Record" />
                            </children>
                         </AnchorPane>
                     </content>

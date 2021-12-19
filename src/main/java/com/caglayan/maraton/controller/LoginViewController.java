@@ -1,6 +1,7 @@
 package com.caglayan.maraton.controller;
 
 import com.caglayan.maraton.utils.AccountUtil;
+import com.caglayan.maraton.utils.CreateSampleData;
 import com.caglayan.maraton.utils.ViewUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,8 +10,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Button;
 
 public class LoginViewController {
+
+    @FXML
+    private Button btnLogin;
 
     @FXML
     private PasswordField txtPassword;
@@ -19,13 +24,22 @@ public class LoginViewController {
     private TextField txtUsername;
 
     @FXML
+    private void initialize() {
+    }
+
+    @FXML
     void loginAction(ActionEvent event) {
+        btnLogin.setDisable(true);
+
         String username = "";
         String password = "";
         if (this.txtUsername.getText().isEmpty() || this.txtPassword.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning..!");
             alert.setHeaderText("Please fill all fields !");
+
+            btnLogin.setDisable(false);
+
             alert.show();
         }
         else{
@@ -44,6 +58,9 @@ public class LoginViewController {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning..!");
                 alert.setHeaderText("Wrong username or password !");
+
+                btnLogin.setDisable(false);
+
                 alert.show();
             }
         }
@@ -51,7 +68,12 @@ public class LoginViewController {
 
     @FXML
     void signUpAction(ActionEvent event) {
-        showUserView();
+        showLSignUpView();
+    }
+
+    @FXML
+    void sampleDataAction(ActionEvent event) {
+        CreateSampleData.createSample();
     }
 
     private void showAdminView(){
@@ -61,7 +83,6 @@ public class LoginViewController {
             AnchorPane adminView = (AnchorPane) loader.load();
             ViewUtil.getInstance().getPrimaryStage().setWidth(750);
             ViewUtil.getInstance().getPrimaryStage().setHeight(450);
-//            ViewUtil.getInstance().getRootPane().setPrefSize(750, 450);
             ViewUtil.getInstance().getRootPane().setCenter(adminView);
             AdminViewController controller = loader.getController();
         } catch (Exception e) {
@@ -76,6 +97,18 @@ public class LoginViewController {
             AnchorPane userView = (AnchorPane) loader.load();
             ViewUtil.getInstance().getRootPane().setCenter(userView);
             UserViewController controller = loader.getController();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showLSignUpView(){
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../view/signup/SignUpView.fxml"));
+        try {
+            AnchorPane signUpView = (AnchorPane) loader.load();
+            ViewUtil.getInstance().getRootPane().setCenter(signUpView);
+            SignUpViewController controller = loader.getController();
         } catch (Exception e) {
             e.printStackTrace();
         }

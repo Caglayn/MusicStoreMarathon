@@ -11,9 +11,9 @@ import java.util.ArrayList;
 
 public class ArtistEntityController implements Controllable<ArtistEntity>{
     @Override
-    public void delete(ArtistEntity entity) {
+    public void delete(long id) {
         try {
-            ArtistEntity tempEntity = find(entity.getArtistId());
+            ArtistEntity tempEntity = find(id);
             if (tempEntity != null) {
                 Session session = databaseConnectionHibernate();
                 session.getTransaction().begin();

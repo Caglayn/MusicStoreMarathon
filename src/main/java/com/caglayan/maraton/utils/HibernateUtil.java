@@ -2,13 +2,26 @@ package com.caglayan.maraton.utils;
 
 
 import com.caglayan.maraton.entities.*;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
-    private static final SessionFactory sessionFactory = createSessionFactory();
+    private static HibernateUtil instance;
+    private Session session;
 
-    private static SessionFactory createSessionFactory() {
+    private final SessionFactory sessionFactory = createSessionFactory();
+
+    private HibernateUtil(){
+    }
+
+    public static HibernateUtil getInstance(){
+        if (instance == null)
+            instance = new HibernateUtil();
+        return instance;
+    }
+
+    private SessionFactory createSessionFactory() {
         try {
             Configuration configuration = new Configuration();
 
@@ -29,7 +42,13 @@ public class HibernateUtil {
         return null;
     }
 
-    public static SessionFactory getSessionFactory(){
-        return sessionFactory;
+    public SessionFactory getSessionFactory(){
+        return this.sessionFactory;
+    }
+
+    public Session getOpenSession(){
+        if (this.session == null || !this.session.isConnected())
+            this.session = this.getSessionFactory().openSession();
+        return this.session;
     }
 }
