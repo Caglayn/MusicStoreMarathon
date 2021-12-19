@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane prefHeight="450.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.caglayan.maraton.controller.AdminViewController">
+   <children>
+      <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <MenuBar BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </top>
+         <center>
+            <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+              <tabs>
+                <Tab fx:id="tabCAlbums" text="CD Albums">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="tblCdAlbums" layoutX="14.0" layoutY="10.0" prefHeight="342.0" prefWidth="381.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="2.0">
+                                <columns>
+                                  <TableColumn fx:id="colCdId" prefWidth="35.0" text="ID" />
+                                  <TableColumn fx:id="colCdAlbumName" prefWidth="160.0" text="Album Name" />
+                                    <TableColumn fx:id="colCdPrice" prefWidth="72.0" text="Price" />
+                                    <TableColumn fx:id="colCdCanSold" prefWidth="65.0" text="Can Sold?" />
+                                    <TableColumn fx:id="colCdDiscount" prefWidth="61.0" text="Discount" />
+                                    <TableColumn fx:id="colCdArtist" prefWidth="103.0" text="Artist" />
+                                </columns>
+                              </TableView>
+                              <GridPane layoutX="505.0" layoutY="8.0" prefHeight="272.0" prefWidth="239.0" AnchorPane.bottomAnchor="119.0" AnchorPane.leftAnchor="505.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="ID" />
+                                    <Label text="Album Name" GridPane.rowIndex="1" />
+                                    <Label text="Price" GridPane.rowIndex="2" />
+                                    <Label text="Discount Rate" GridPane.rowIndex="4" />
+                                    <Label text="Artist" GridPane.rowIndex="5" />
+                                    <Label text="Genres" GridPane.rowIndex="6" />
+                                    <TextField fx:id="txtCdId" editable="false" GridPane.columnIndex="1" />
+                                    <TextField fx:id="txtCdAlbumName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="txtCdPrice" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="txtCdDiscount" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <CheckBox fx:id="chkbxCdCanSold" mnemonicParsing="false" text="Can Sold ?" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="comboCdArtist" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <ComboBox fx:id="comboCdGenres" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab fx:id="tabDvdAlbums" text="Dvd Albums">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <AnchorPane layoutX="2.0" layoutY="69.0" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              <TableView fx:id="tblDvdAlbums" layoutX="12.0" layoutY="2.0" prefHeight="342.0" prefWidth="427.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="2.0">
+                                 <columns>
+                                    <TableColumn fx:id="colDvdId" prefWidth="35.0" text="ID" />
+                                    <TableColumn fx:id="colDvdAlbumName" prefWidth="143.0" text="Album Name" />
+                                    <TableColumn fx:id="colDvdPrice" prefWidth="49.0" text="Price" />
+                                    <TableColumn fx:id="colDvdCanSold" prefWidth="61.0" text="Can Sold?" />
+                                    <TableColumn fx:id="colDvdDiscount" prefWidth="58.0" text="Discount" />
+                                    <TableColumn fx:id="colDvdArtist" prefWidth="87.0" text="Artist" />
+                                    <TableColumn fx:id="colDvdQuality" prefWidth="63.0" text="Quality" />
+                                 </columns>
+                              </TableView>
+                              <GridPane layoutX="511.0" layoutY="14.0" prefHeight="281.0" prefWidth="230.0" AnchorPane.leftAnchor="505.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="ID" />
+                                    <Label text="Album Name" GridPane.rowIndex="1" />
+                                    <Label text="Price" GridPane.rowIndex="2" />
+                                    <Label text="Discount Rate" GridPane.rowIndex="4" />
+                                    <Label text="Artist" GridPane.rowIndex="5" />
+                                    <Label text="Genres" GridPane.rowIndex="6" />
+                                    <Label text="Quality" GridPane.rowIndex="7" />
+                                    <TextField fx:id="txtDvdId" editable="false" GridPane.columnIndex="1" />
+                                    <TextField fx:id="txtDvdAlbumName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="txtDvdPrice" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="txtDvdDiscount" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <CheckBox fx:id="chkbxDvdCanSold" mnemonicParsing="false" text="Can Sold ?" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="comboDvdArtist" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <ComboBox fx:id="comboDvdGenres" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <ComboBox fx:id="comboDvdQuality" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab fx:id="tabVinylAlbums" text="Vinyl Albums">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <AnchorPane layoutX="14.0" layoutY="14.0" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <AnchorPane layoutX="2.0" layoutY="69.0" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                 </children>
+                              </AnchorPane>
+                              <TableView fx:id="tblVinylAlbums" layoutX="14.0" layoutY="14.0" prefHeight="342.0" prefWidth="381.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="2.0">
+                                 <columns>
+                                    <TableColumn fx:id="colVinylId" prefWidth="30.0" text="ID" />
+                                    <TableColumn fx:id="colVinylAlbumName" prefWidth="114.0" text="Album Name" />
+                                    <TableColumn fx:id="colVinylPrice" prefWidth="39.0" text="Price" />
+                                    <TableColumn fx:id="colVinylCanSold" prefWidth="63.0" text="Can Sold?" />
+                                    <TableColumn fx:id="colVinylDiscount" prefWidth="55.0" text="Discount" />
+                                    <TableColumn fx:id="colVinylDiameter" prefWidth="58.0" text="Diameter" />
+                                    <TableColumn fx:id="colVinylArtist" prefWidth="95.0" text="Artist" />
+                                    <TableColumn fx:id="colVinylSpeed" prefWidth="42.0" text="Speed" />
+                                 </columns>
+                              </TableView>
+                              <GridPane layoutX="506.0" layoutY="14.0" prefHeight="298.0" prefWidth="240.0" AnchorPane.leftAnchor="505.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Label text="ID" />
+                                    <Label text="Album Name" GridPane.rowIndex="1" />
+                                    <Label text="Price" GridPane.rowIndex="2" />
+                                    <Label text="Discount Rate" GridPane.rowIndex="4" />
+                                    <Label text="Artist" GridPane.rowIndex="5" />
+                                    <Label text="Genres" GridPane.rowIndex="6" />
+                                    <Label text="Diameter" GridPane.rowIndex="7" />
+                                    <TextField fx:id="txtVinylId" editable="false" GridPane.columnIndex="1" />
+                                    <TextField fx:id="txtVinylAlbumName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="txtVinylPrice" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="txtVinylDiscount" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <TextField fx:id="txtVinylDiameter" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                    <Label text="Speed" GridPane.rowIndex="8" />
+                                    <TextField fx:id="txtVinylSpeed" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                    <CheckBox fx:id="chkbxVinylCanSold" mnemonicParsing="false" text="Can Sold ?" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <ComboBox fx:id="comboVinylArtist" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <ComboBox fx:id="comboVinylGenres" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

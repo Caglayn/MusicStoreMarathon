@@ -62,4 +62,12 @@ public enum GenreType {
     public static GenreType getById(long id){
         return BY_ID.get(id);
     }
+
+    public static GenreType getByName(String name){
+        return BY_NAME.get(name);
+    }
+
+    public static ArrayList<GenreType> getAllGenreTypes(){
+        return new ArrayList<>(BY_NAME.values());
+    }
 }

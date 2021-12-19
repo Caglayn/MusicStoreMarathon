@@ -1,7 +1,7 @@
 package com.caglayan.maraton.controller;
 
 import com.caglayan.maraton.entities.CDEntity;
-import com.caglayan.maraton.entities.UserEntity;
+import com.caglayan.maraton.utils.LogUtil;
 import org.hibernate.Session;
 
 import javax.persistence.TypedQuery;
@@ -19,10 +19,10 @@ public class CDEntityController implements Controllable<CDEntity> {
                 session.getTransaction().begin();
                 session.remove(tempEntity);
                 session.getTransaction().commit();
-//                LogUtil.getInstance().logInfo("Silme  islemi tamamlandi : >> " + tempEntity);
+                LogUtil.getInstance().logInfo("Silme  islemi tamamlandi : >> " + tempEntity);
             }
         } catch (Exception e) {
-//            LogUtil.getInstance().logError("Silme sirasinda hata meydana geldi : >> " + this.getClass());
+            LogUtil.getInstance().logError("Silme sirasinda hata meydana geldi : >> " + this.getClass());
         }
     }
 
@@ -41,10 +41,10 @@ public class CDEntityController implements Controllable<CDEntity> {
             session.getTransaction().begin();
             session.merge(tempEntity);
             session.getTransaction().commit();
-//            LogUtil.getInstance().logInfo("Guncelleme islemi tamamlandi : >> " + tempEntity);
+            LogUtil.getInstance().logInfo("Guncelleme islemi tamamlandi : >> " + tempEntity);
         } catch (Exception e) {
             e.printStackTrace();
-//            LogUtil.getInstance().logError("Guncelleme sirasinda hata meydana geldi : >> " + this.getClass());
+            LogUtil.getInstance().logError("Guncelleme sirasinda hata meydana geldi : >> " + this.getClass());
         }
     }
 
@@ -58,10 +58,10 @@ public class CDEntityController implements Controllable<CDEntity> {
 
         ArrayList<CDEntity> cdAlbums = (ArrayList<CDEntity>) session.createQuery(criteria).getResultList();
 
-//        if (users.size() > 0) {
-//            LogUtil.getInstance().logInfo("Kayitlar bulundu.");
-//        } else
-//            LogUtil.getInstance().logInfo("Listelenecek kayit bulunamadi !");
+        if (cdAlbums.size() > 0) {
+            LogUtil.getInstance().logInfo("Kayitlar bulundu.");
+        } else
+            LogUtil.getInstance().logInfo("Listelenecek kayit bulunamadi !");
 
         return cdAlbums;
     }
@@ -73,11 +73,11 @@ public class CDEntityController implements Controllable<CDEntity> {
         try {
             tempEntity = session.find(CDEntity.class, id);
 
-//            if (tempEntity != null) {
-//                LogUtil.getInstance().logInfo("Kayit bulundu : >> " + tempEntity);
-//            } else {
-//                LogUtil.getInstance().logInfo("Aradiginiz kriterde kayit bulunamadi !!");
-//            }
+            if (tempEntity != null) {
+                LogUtil.getInstance().logInfo("Kayit bulundu : >> " + tempEntity);
+            } else {
+                LogUtil.getInstance().logInfo("Aradiginiz kriterde kayit bulunamadi !!");
+            }
 
         } catch (Exception e) {
             e.printStackTrace();

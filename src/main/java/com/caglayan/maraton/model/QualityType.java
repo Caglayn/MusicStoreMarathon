@@ -1,6 +1,8 @@
 package com.caglayan.maraton.model;
 
 import com.caglayan.maraton.entities.GenreEntity;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,7 +52,17 @@ public enum QualityType {
         return BY_ID.get(id);
     }
 
+    public static QualityType getByName(String name){
+        return BY_NAME.get(name);
+    }
+
     public static ArrayList<QualityType> getAllQualities(){
-        return (ArrayList<QualityType>)BY_ID.values().stream().toList();
+        return new ArrayList<>(BY_NAME.values());
+    }
+
+    public StringProperty asStringProperty(){
+        StringProperty quality = new SimpleStringProperty();
+        quality.set(this.quality);
+        return quality;
     }
 }

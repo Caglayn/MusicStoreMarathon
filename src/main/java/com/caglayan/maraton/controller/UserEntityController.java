@@ -1,6 +1,7 @@
 package com.caglayan.maraton.controller;
 
 import com.caglayan.maraton.entities.UserEntity;
+import com.caglayan.maraton.utils.AccountUtil;
 import org.hibernate.Session;
 
 import javax.persistence.TypedQuery;
@@ -108,5 +109,16 @@ public class UserEntityController implements Controllable<UserEntity> {
             return list.get(0);
         else
             return null;
+    }
+
+    public boolean LoginWithUsernameAndPassword(String username, String password){
+        UserEntity loginUser = findByNameAndPassword(username, password);
+        if (loginUser != null){
+            AccountUtil.getInstance().setActiveUser(loginUser);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
